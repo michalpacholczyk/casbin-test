@@ -1,16 +1,26 @@
-# Exampled Channel Policy are defined in channelpolicies folder
-# Resulting Casbin's policies are grouped per Channel, per Quality
-# [policy_definition]
-#  p = channel, quality, act, max_concurrent_no, sub_rule, eft
+#
+#   Exampled Channel Policy are defined in channelpolicies folder
+#   Resulting Casbin's policies are grouped per Channel, per Quality
+#   [policy_definition]
+#   p = channel, quality, act, max_concurrent_no, sub_rule, eft
+#
+#   Sub roles evaluation must be grouped, however:
+#
+#   Arrow function doesn't work here, so you cannot use Array.some() like:
+#   r.sub.packages.some(entitlement => ['hd', 'hd-plus'].includes(entitlement))
+#
+#   Defining array does not work as well so you cannot use something like:
+#   ['in_home', 'in_country'].includes(r.sub.context.location)
+#
 
-# Channel CH01, quality SD
+#   Channel CH01, quality SD
 p, CH01, SD, LIVE, inf, !r.sub.packages.includes('base'), deny
 p, CH01, SD, LIVE, inf, r.sub.packages.includes('base'), allow
 p, CH01, SD, PVR, inf, !r.sub.packages.includes('base'), deny
 p, CH01, SD, PVR, inf, r.sub.packages.includes('base'), allow
 p, CH01, SD, PVR, inf, r.sub.context.location == 'out_country', deny
 
-# Channel CH01, quality HD
+#   Channel CH01, quality HD
 p, CH01, HD, LIVE, 3, !r.sub.packages.includes('hd') && !r.sub.packages.includes('hd-plus'), deny
 p, CH01, HD, LIVE, 3, r.sub.packages.includes('hd') || r.sub.packages.includes('hd-plus'), allow
 p, CH01, HD, LIVE, 3, r.sub.context.location !== 'in_home' && r.sub.context.location !== 'in_country', deny
@@ -24,18 +34,11 @@ p, CH01, HD, PVR, 3, r.sub.packages.includes('hd') || r.sub.packages.includes('h
 p, CH01, HD, PVR, 3, r.sub.context.location !== 'in_home' && r.sub.context.location !== 'in_country', deny
 p, CH01, HD, PVR, 3, r.sub.context.location == 'in_home' || r.sub.context.location == 'in_country', allow
 
-# Channel CH02, quality SD
+#   Channel CH02, quality SD
 p, CH02, SD, LIVE, 2, !r.sub.packages.includes('base') && !r.sub.packages.includes('hd') && !r.sub.packages.includes('hd-plus'), deny
 p, CH02, SD, LIVE, 2, r.sub.packages.includes('base') || r.sub.packages.includes('hd') || r.sub.packages.includes('hd-plus'), allow
 
-# Channel CH02, quality HD
+#   Channel CH02, quality HD
 p, CH02, HD, LIVE, 2, !r.sub.packages.includes('hd') && !r.sub.packages.includes('hd-plus'), deny
 p, CH02, HD, LIVE, 2, r.sub.packages.includes('hd') || r.sub.packages.includes('hd-plus'), allow
 
-# Sub roles evaluation must be grouped, however:
-#
-# Arrow function doesn't work here, so you cannot use Array.some() like:
-# r.sub.packages.some(entitlement => ['hd', 'hd-plus'].includes(entitlement))
-#
-# Defining array does not work as well so you cannot use something like:
-# ['in_home', 'in_country'].includes(r.sub.context.location)
