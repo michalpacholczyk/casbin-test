@@ -1,0 +1,51 @@
+{
+  "Policy": [
+    {
+      "Id": "HdPlus",
+      "Effect": "Allow",
+      "Quality": "HD",
+      "Action": [
+        "Live",
+        "Catchup",
+        "PVR"
+      ],
+      "Condition": {
+        "EntitlementPackage": [
+          "hd-plus", "hd"
+        ],
+        "ConcurrencyLimit": {
+          "Max": 3,
+          "GroupId": "RTLGroup"
+        },
+        "Zone": [
+          "InHome", "InCountry"
+        ]
+      }
+    },
+    {
+      "Id": "BasePlus",
+      "Effect": "Deny",
+      "Quality": "SD",
+      "Action": [
+        "PVR"
+      ],
+      "Condition": {
+        "Zone": [
+          "OutCountry"
+        ]
+      }
+    },
+    {
+      "Id": "Base",
+      "Effect": "Allow",
+      "Quality": "SD",
+      "Action": [
+        "Live",
+        "PVR"
+      ],
+      "Condition": {
+        "EntitlementPackage": ["base"]
+      }
+    }
+  ]
+}

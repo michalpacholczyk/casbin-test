@@ -1,0 +1,32 @@
+{
+  "Policy": [
+    {
+      "Id": "HdPlus",
+      "Effect": "Allow",
+      "Quality": "*",
+      "Action": [
+        "Live",
+      ],
+      "Condition": {
+        "EntitlementPackage": [
+          "hd-plus", "hd"
+        ],
+        "ConcurrencyLimit": {
+          "Max": 2,
+          "GroupId": "RTLGroup"
+        }
+      }
+    },
+    {
+      "Id": "Base",
+      "Effect": "Allow",
+      "Quality": "SD",
+      "Action": [
+        "Live",
+      ],
+      "Condition": {
+        "EntitlementPackage": ["base"]
+      }
+    }
+  ]
+}
