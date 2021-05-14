@@ -1,0 +1,2 @@
+curl --location --request POST 'http://localhost:3000/playchannel/CH01/HD/PVR' \
+--header 'Authorization: { "sub": "1234567890", "iat": 1516239022, "exp": 1516300000, "packages": ["base", "hd-plus"], "context": { "location": "in_home", "device": { "class": "STB", "serial": "12345" } } }'
