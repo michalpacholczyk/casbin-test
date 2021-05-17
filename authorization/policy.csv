@@ -25,6 +25,10 @@ p, CH01, HD, CATCHUP, 3, !r.sub.packages.includes('hd') && !r.sub.packages.inclu
 p, CH01, HD, CATCHUP, 3, r.sub.context.location !== 'in_home' && r.sub.context.location !== 'in_country', deny
 p, CH01, HD, PVR, 3, !r.sub.packages.includes('hd') && !r.sub.packages.includes('hd-plus'), deny
 p, CH01, HD, PVR, 3, r.sub.context.location !== 'in_home' && r.sub.context.location !== 'in_country', deny
+# Used for checking concurrency limits
+p, CH01, HD, LIVE, 3, true, deny
+p, CH01, HD, CATCHUP, 3, true, deny
+p, CH01, HD, PVR, 3, true, deny
 
 #   Channel CH02, quality SD
 p, CH02, SD, LIVE, 2, !r.sub.packages.includes('base') && !r.sub.packages.includes('hd') && !r.sub.packages.includes('hd-plus'), deny

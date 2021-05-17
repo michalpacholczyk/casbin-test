@@ -12,7 +12,7 @@ async function checkConcurrencyLimit(concurrencyLimit, subject, sub_rule) {
     }
     console.log("Checking concurrency limit for sub-role: \"" + sub_rule + "\" with concurrency limit: " + concurrencyLimit);
     const concurrentSessionNo = await mockSessionService.checkConcurrentSessionNumber(subject.sub);
-    return concurrencyLimit >= concurrentSessionNo;
+    return concurrencyLimit < concurrentSessionNo;
 }
 
 async function enforce(sub, channel, quality, act) {
